@@ -1,1 +1,21 @@
+spring:
+  application:
+    name: ApiGateway
+    cloud:
+      gateway:
+        client:
+          routes:
+            - id: one
+              uri: lb://MICROSERVICE-ONE
+              predicates:
+                - Path=/one/**
+            - id: two
+              uri: lb://MICROSERVICE-TWO
+              predicates:
+                - Path=/two/**
 
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8009/eureka
