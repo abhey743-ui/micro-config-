@@ -1,17 +1,24 @@
 spring:
-  cloud:
-    gateway:
-      routes:
-        - id: one
-          uri: lb://MICROSERVICE-ONE
-          predicates:
-            - Path=/one/**
-        - id: two
-          uri: lb://MICROSERVICE-TWO
-          predicates:
-            - Path=/two/**
+  application:
+    name: apiGateway
+  config:
+    import: optional:configserver:http://localhost:9007
+
+cloud:
+  gateway:
+    routes:
+      - id: one
+        uri: lb://MICROSERVICE-ONE
+        predicates:
+          - Path=/one/**
+      - id: two
+        uri: lb://MICROSERVICE-TWO
+        predicates:
+          - Path=/two/**
 
 eureka:
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8009/eureka
